@@ -16,11 +16,12 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  // @Get()
-  // findAll(): Promise<User[]> {
-  //   return this.usersService.findAll();
-  // }
-
+  @Get('me')
+  @Patch('me')
+  @Get('me/wishes')
+  @Get(':username')
+  @Get(':username/wishes')
+  @Post('find')
   @Post()
   async create(@Body() сreateUserDto: CreateUserDto) {
     return this.usersService.create(сreateUserDto);
