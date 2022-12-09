@@ -1,4 +1,4 @@
-import { 
+import {
   Controller,
   Get,
   Post,
@@ -19,7 +19,7 @@ export class UsersController {
   // @Get()
   // findAll(): Promise<User[]> {
   //   return this.usersService.findAll();
-  // } 
+  // }
 
   @Post()
   async create(@Body() сreateUserDto: CreateUserDto) {

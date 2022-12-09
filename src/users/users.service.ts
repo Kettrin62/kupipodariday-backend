@@ -28,4 +28,9 @@ export class UsersService {
   async removeOne(id: number) {
     return this.userRepository.delete({ id });
   }
+
+  async findByUsername(username: string) {
+    const user = await this.userRepository.findOneBy({ username });
+    return user;
+  }
 }

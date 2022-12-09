@@ -4,6 +4,6 @@ import { WishesController } from './wishes.controller';
 
 @Module({
   providers: [WishesService],
-  controllers: [WishesController]
+  controllers: [WishesController],
 })
 export class WishesModule {}
