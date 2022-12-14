@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { User } from './users/entities/user.entity';
-// import { Wish } from './wishes/entities/wish.entity';
-// import { Wishlist } from './wishlists/entities/wishlist.entity';
-// import { Offer } from './offers/entities/offer.entity';
+import { User } from './users/entities/user.entity';
+import { Wish } from './wishes/entities/wish.entity';
+import { Wishlist } from './wishlists/entities/wishlist.entity';
+import { Offer } from './offers/entities/offer.entity';
 import { UsersModule } from 'src/users/users.module';
 import { WishesModule } from 'src/wishes/wishes.module';
 import { OffersModule } from 'src/offers/offers.module';
@@ -26,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
         ...configService.get('database'),
       }),
     }),
+
     // TypeOrmModule.forRoot({
     //   type: 'postgres',
     //   host: 'localhost',
@@ -36,6 +37,7 @@ import { AuthModule } from './auth/auth.module';
     //   entities: [User, Wish, Wishlist, Offer],
     //   synchronize: true,
     // }),
+
     UsersModule,
     WishesModule,
     OffersModule,

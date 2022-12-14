@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local.guards';
 
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(
     private usersService: UsersService,
@@ -13,12 +13,16 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  signin(@Request() req) {
+  async signin(@Request() req) {
+    console.log('signin');
+    
     return this.authService.auth(req.user);
   }
 
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDto) {
+    console.log('signup');
+    
     const user = await this.usersService.create(createUserDto);
     console.log(user);
 

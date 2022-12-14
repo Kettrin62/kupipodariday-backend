@@ -1,0 +1,47 @@
+### Регистрация
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+
+    "username": "exampleuser5678",
+    "about": "exampleuser4678",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "email": "user5678@yandex.ru",
+    "password": "somestrongpassword234"
+
+}
+
+### Авторизация
+POST http://127.0.0.1:3000/signin
+Content-Type: application/json
+
+{
+    "username": "exampleuser5",
+    "password": "somestrongpassword234"
+}
+
+# {
+#     "email": "admin@admin.admin",
+#     "password": "admin"
+# }
+
+###
+
+# Васёк
+#@token = 7d2894397266c3eecf0ea8a0319ec3e5e102e09b
+
+
+
+### endpoint /users/me
+GET http://127.0.0.1:3000/users/me
+# Authorization: Token {{token}}
+
+### endpoint /users/me
+GET http://127.0.0.1:3000/users/me/wishes
+# Authorization: Token {{token}}
+
+### endpoint /users/me
+POST http://127.0.0.1:3000/users
+# Authorization: Token {{token}}
+

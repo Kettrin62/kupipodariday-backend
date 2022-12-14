@@ -11,7 +11,7 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  auth(user: User) {
+  async auth(user: User) {
     const payload = { sub: user.id };
 
     return { access_token: this.jwtService.sign(payload) };
@@ -24,6 +24,8 @@ export class AuthService {
 
     if (user && isMatch) {
       const { password, ...result } = user;
+      console.log(result);
+      
       return result;
     }
 
