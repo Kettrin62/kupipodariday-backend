@@ -24,8 +24,6 @@ export class AuthService {
 
     if (user && isMatch) {
       const { password, ...result } = user;
-      console.log(result);
-      
       return result;
     }
 

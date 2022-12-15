@@ -19,7 +19,7 @@ export class UsersController {
 
   @Get('me')
   getMe(@Req() req) {
-    console.log('req.user');
+    console.log('req.user', req.user);
     
     return req.user;
   }

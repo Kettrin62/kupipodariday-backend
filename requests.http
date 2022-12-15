@@ -4,10 +4,10 @@ Content-Type: application/json
 
 {
 
-    "username": "exampleuser5678",
-    "about": "exampleuser4678",
+    "username": "exampleuser5678910111213",
+    "about": "exampleuser467891011",
     "avatar": "https://i.pravatar.cc/150?img=3",
-    "email": "user5678@yandex.ru",
+    "email": "user5678910111213@yandex.ru",
     "password": "somestrongpassword234"
 
 }
@@ -29,13 +29,13 @@ Content-Type: application/json
 ###
 
 # Васёк
-#@token = 7d2894397266c3eecf0ea8a0319ec3e5e102e09b
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzExMjk2NjMsImV4cCI6MTY3MzcyMTY2M30.qtx2WF7GUeSTw3_yfS2WJh5VdvCW_mAcSY9eRAIbtMI
 
 
 
 ### endpoint /users/me
 GET http://127.0.0.1:3000/users/me
-# Authorization: Token {{token}}
+Authorization: Token {{token}}
 
 ### endpoint /users/me
 GET http://127.0.0.1:3000/users/me/wishes

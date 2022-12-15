@@ -13,19 +13,14 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('signin')
-  async signin(@Request() req) {
-    console.log('signin');
-    
+  signin(@Request() req) {
     return this.authService.auth(req.user);
   }
 
   @Post('signup')
   async signup(@Body() createUserDto: CreateUserDto) {
-    console.log('signup');
-    
     const user = await this.usersService.create(createUserDto);
-    console.log(user);
-
-    return this.authService.auth(user);
+    const { password, ...result } = user;
+    return result;
   }
 }
