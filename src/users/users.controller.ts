@@ -23,11 +23,15 @@ export class UsersController {
   @Get('me')
   getMe(@Req() req) {
     // console.log('req.user', req.user);
-    
     return req.user;
   }
 
-  
+  @Get(':username')
+  getUserByUsername(@Param('username') username: string) {
+    // console.log('username', this.usersService.findByUsername(username));
+    return this.usersService.findByUsername(username);
+  }
+
   @Get('me/wishes')
   getMeWishes(@Req() req) {
     console.log('wishes');
@@ -41,15 +45,6 @@ export class UsersController {
   // @Get(':username/wishes')
 
   // @Post('find')
-
-  @Post()
-  create(): string {
-    console.log('cats');
-    
-    return 'This action adds a new cat';
-  }
-
-
 
   // @Get(':id')
   // async findOne(@Param('id') id: string) {

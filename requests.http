@@ -38,6 +38,10 @@ GET http://127.0.0.1:3000/users/me
 Authorization: Bearer {{token}}
 
 ### endpoint /users/me
+GET http://127.0.0.1:3000/users/exampleuser5
+Authorization: Bearer {{token}}
+
+### endpoint /users/me
 GET http://127.0.0.1:3000/users/me/wishes
 # Authorization: Token {{token}}
 

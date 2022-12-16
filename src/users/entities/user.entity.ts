@@ -54,11 +54,14 @@ export class User {
 
   @Column({
     unique: true,
+    select: false,
   })
   @IsEmail()
   email: string;
 
-  @Column()
+  @Column({
+    select: false,
+  })
   @IsString()
   password: string;
 
