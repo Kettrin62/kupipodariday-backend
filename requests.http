@@ -65,11 +65,27 @@ Authorization: Bearer {{token}}
 
 }
 
-### endpoint /users/me
-GET http://127.0.0.1:3000/users/me/wishes
-# Authorization: Token {{token}}
 
-### endpoint /users/me
-POST http://127.0.0.1:3000/users
-# Authorization: Token {{token}}
+
+
+### endpoint /wishes
+POST http://127.0.0.1:3000/wishes
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+# {
+#     "name": "Колонка JBL PartyBox 110",
+#     "link": "https://www.onlinetrade.ru/catalogue/portativnaya_akustika-c311/jbl/kolonka_jbl_partybox_110_jblpartybox110-3373653.html",
+#     "price": 40200,
+#     "image": "https://static.onlinetrade.ru/img/items/b/kolonka_jbl_partybox_110_2394566_1.jpg"
+# }
+
+{
+    "name": "Беспроводная микрофонная система JBL Wireless Microphone Set",
+    "link": "https://market.yandex.ru/product--besprovodnaia-mikrofonnaia-sistema-jbl-wireless-microphone-set-jblwirelessmic/101824535015?text=%D0%BC%D0%B8%D0%BA%D1%80%D0%BE%D1%84%D0%BE%D0%BD%20jbl&cpc=FIWlcB7TZui_0LM9YakykIucOePHKhLcdndVV2y-8IxwcvSTWUzWcy0kxsLspf3vyLLJC5nzhcnogerUt5mleRVykDeXPu5K6ur2I_bltqwbxtAecOLFYsSOaq5NIoHJtMelLF9E9JRJRDgt3_CdihNqLwcK5za1&sku=101824535015&do-waremd5=9pLuLiWucxyhzu7u61hFpw&cpa=1&nid=26993530",
+    "price": 25540,
+    "image": "https://avatars.mds.yandex.net/get-marketpic/6014124/pic2fce573f4a660dabb120295b960871cd/orig"
+}
+
+
 

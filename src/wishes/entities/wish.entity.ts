@@ -49,13 +49,16 @@ export class Wish {
     type: 'decimal',
     precision: 10,
     scale: 2,
+    default: 0,
   })
   raised: number;
 
   @ManyToOne(() => User, (user) => user.wishes)
   owner: User;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   @IsString()
   @Length(1, 1024)
   description: string;
@@ -63,7 +66,9 @@ export class Wish {
   @OneToMany(() => Offer, (offer) => offer.item)
   offers: Offer[];
 
-  @Column()
+  @Column({
+    default: 0,
+  })
   @IsInt()
   copied: number;
 }
