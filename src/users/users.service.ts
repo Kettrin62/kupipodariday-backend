@@ -50,6 +50,17 @@ export class UsersService {
     return user;
   }
 
+  async findMany(query: string): Promise<User[]> {
+    const users = await this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.username = :username', { username: query })
+      .orWhere('user.email = :email', { email: query })
+      .addSelect('user.email')
+      .getMany();
+
+    return users;
+  }
+
 
 
 

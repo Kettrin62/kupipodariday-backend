@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guards';
 import { CreateUserDto } from './dto/create-user.dto';
+import { FindUsersDto } from './dto/find-users-dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
@@ -30,6 +31,11 @@ export class UsersController {
   getUserByUsername(@Param('username') username: string) {
     // console.log('username', this.usersService.findByUsername(username));
     return this.usersService.findByUsername(username);
+  }
+
+  @Post('find')
+  findUsersByQuery(@Body() findUsersDto: FindUsersDto) {
+    return this.usersService.findMany(findUsersDto.query)
   }
 
   @Get('me/wishes')
