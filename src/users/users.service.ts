@@ -13,6 +13,10 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
+  createHash(password: string) {
+    return bcrypt.hash(password, 10);
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
     const hash = await bcrypt.hash(createUserDto.password, 10);
 
@@ -61,13 +65,18 @@ export class UsersService {
     return users;
   }
 
-
-
-
   async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    if (updateUserDto.password) {
+      const hash = await this.createHash(updateUserDto.password);
+      updateUserDto.password = hash;
+    }
     await this.usersRepository.update({ id }, updateUserDto);
     return this.usersRepository.findOneBy({ id });
   }
+
+
+
+
 
   async removeOne(id: number) {
     return this.usersRepository.delete({ id });

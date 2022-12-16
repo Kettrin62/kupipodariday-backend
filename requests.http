@@ -51,6 +51,21 @@ Authorization: Bearer {{token}}
 }
 
 ### endpoint /users/me
+PATCH http://127.0.0.1:3000/users/me
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+
+    "username": "exampleuser5",
+    "about": "exampleuser5",
+    "avatar": "https://i.pravatar.cc/150?img=3",
+    "email": "user5@yandex.ru",
+    "password": "somestrongpassword234"
+
+}
+
+### endpoint /users/me
 GET http://127.0.0.1:3000/users/me/wishes
 # Authorization: Token {{token}}
 

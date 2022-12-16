@@ -38,6 +38,11 @@ export class UsersController {
     return this.usersService.findMany(findUsersDto.query)
   }
 
+  @Patch('me')
+  update(@Req() req, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateOne(req.user.id, updateUserDto);
+  }
+
   @Get('me/wishes')
   getMeWishes(@Req() req) {
     console.log('wishes');
@@ -45,23 +50,6 @@ export class UsersController {
     return req.user;
   }
   
-  // @Patch('me')
-  // @Get(':username')
-
-  // @Get(':username/wishes')
-
-  // @Post('find')
-
-  // @Get(':id')
-  // async findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.updateOne(+id, updateUserDto);
-  // }
-
   // @Delete(':id')
   // remove(@Param('id') id: string) {
   //   return this.usersService.removeOne(+id);
