@@ -29,13 +29,13 @@ Content-Type: application/json
 ###
 
 # Васёк
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzExMjk2NjMsImV4cCI6MTY3MzcyMTY2M30.qtx2WF7GUeSTw3_yfS2WJh5VdvCW_mAcSY9eRAIbtMI
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzEyMTU5NDUsImV4cCI6MTY3MzgwNzk0NX0.SB0Kx4O-W4BSITZOETfVjLavXP2ODMTK3HZMISR5gNU
 
 
 
 ### endpoint /users/me
 GET http://127.0.0.1:3000/users/me
-Authorization: Token {{token}}
+Authorization: Bearer {{token}}
 
 ### endpoint /users/me
 GET http://127.0.0.1:3000/users/me/wishes
