@@ -84,10 +84,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Светодиодный камин-светильник NEON-NIGHT Винтаж с эффектом живого огня",
-    "link": "https://www.onlinetrade.ru/catalogue/dekorativnye_kaminy-c5765/neon_night/svetodiodnyy_kamin_svetilnik_neon_night_vintazh_s_effektom_zhivogo_ognya_36kh16kh30_sm_511_032-1923501.html",
-    "price": 2850,
-    "image": "https://static.onlinetrade.ru/img/items/b/neon_night_vintazh_s_effektom_zhivogo_ognya_30kh16kh35_5_sm_1177925_5.jpg"
+    "name": "Чайник со свистком TYPHOON",
+    "link": "https://www.onlinetrade.ru/catalogue/chayniki_dlya_plity-c235/typhoon/chaynik_so_svistkom_typhoon_living_goluboy_2_5_l_1401.164v-2179999.html#tabs_feedbacks",
+    "price": 2270,
+    "image": "https://static.onlinetrade.ru/img/items/b/chaynik_so_svistkom_typhoon_living_goluboy_1448987_1.jpg"
 }
 
 ### endpoint /wishes/last
@@ -117,7 +117,7 @@ DELETE http://127.0.0.1:3000/wishes/13
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}/copy
-POST http://127.0.0.1:3000/wishes/13/copy
+POST http://127.0.0.1:3000/wishes/7/copy
 Authorization: Bearer {{token}}
 
 

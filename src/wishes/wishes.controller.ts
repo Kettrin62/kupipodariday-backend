@@ -22,8 +22,9 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
-    return this.wishesService.create(createWishDto, req.user.id);
+  async createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
+    await this.wishesService.create(createWishDto, req.user.id);
+    return {};
   }
 
   @Get('last')
