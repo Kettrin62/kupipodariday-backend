@@ -71,4 +71,8 @@ export class WishesService {
       return this.wishesRepository.update(wishId, data);
     }
   }
+
+  remove(id: number) {
+    return this.wishesRepository.delete(id);
+  }
 }

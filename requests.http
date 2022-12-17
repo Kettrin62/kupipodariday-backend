@@ -29,8 +29,8 @@ Content-Type: application/json
 ###
 
 # Васёк
-# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzEyMTU5NDUsImV4cCI6MTY3MzgwNzk0NX0.SB0Kx4O-W4BSITZOETfVjLavXP2ODMTK3HZMISR5gNU
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI4LCJpYXQiOjE2NzEyNzQ5NDAsImV4cCI6MTY3Mzg2Njk0MH0.dL7_J14NzlwOXz_8YPh_dB-EYZmI8h9F6zdCA2MovIk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzEyMTU5NDUsImV4cCI6MTY3MzgwNzk0NX0.SB0Kx4O-W4BSITZOETfVjLavXP2ODMTK3HZMISR5gNU
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI4LCJpYXQiOjE2NzEyNzQ5NDAsImV4cCI6MTY3Mzg2Njk0MH0.dL7_J14NzlwOXz_8YPh_dB-EYZmI8h9F6zdCA2MovIk
 
 
 ### endpoint /users/me
@@ -99,7 +99,7 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/8
+GET http://127.0.0.1:3000/wishes/12
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
@@ -111,3 +111,9 @@ Authorization: Bearer {{token}}
     "name": "Светодиодный камин-светильник Винтаж с эффектом живого огня",
     "price": 2890
 }
+
+### endpoint /wishes/{id}
+DELETE http://127.0.0.1:3000/wishes/10
+Authorization: Bearer {{token}}
+
+

@@ -1,8 +1,10 @@
 import { 
   Body,
   Controller,
+  Delete,
   ForbiddenException,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -36,7 +38,11 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  getWish(@Param('id') id: number) {
+  async getWish(@Param('id') id: number) {
+    const wish = await this.wishesService.findOne(id)
+    if (!wish) {
+      throw new NotFoundException();
+    }
     return this.wishesService.findOne(id);
   }
 
@@ -51,5 +57,16 @@ export class WishesController {
     return;
   }
 
-  
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async removeWish(
+    @Param('id') id: number,
+    @Req() req,
+  ) {
+    const wish = await this.wishesService.findOne(id);
+    if (wish.owner.id === req.user.id) {
+      await this.wishesService.remove(id);
+      return wish;
+    } else throw new ForbiddenException();
+  }
 }
