@@ -99,7 +99,15 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/13
+GET http://127.0.0.1:3000/wishes/8
 Authorization: Bearer {{token}}
 
+### endpoint /wishes/{id}
+PATCH http://127.0.0.1:3000/wishes/8
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
+{
+    "name": "Светодиодный камин-светильник Винтаж с эффектом живого огня",
+    "price": 2890
+}

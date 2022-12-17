@@ -1,28 +1,28 @@
 import { 
   Length, 
   IsUrl, 
-  IsNotEmpty, 
+  IsInt, 
   IsString,
   IsOptional,
-  IsInt,
 } from 'class-validator';
 
-export class CreateWishDto {
+export class UpdateWishDto {
   @IsString()
   @Length(1, 250)
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
 
   @IsUrl()
-  @IsNotEmpty()
+  @IsOptional()
   link: string;
 
   @IsUrl()
   @IsOptional()
   image: string;
 
+
   @IsInt()
-  @IsNotEmpty()
+  @IsOptional()
   price: number;
 
   @IsString()

@@ -1,14 +1,17 @@
 import { 
   Body,
   Controller,
+  ForbiddenException,
   Get,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guards';
 import { CreateWishDto } from './dto/create-wish.dto';
+import { UpdateWishDto } from './dto/update-wish.dto';
 import { WishesService } from './wishes.service';
 
 @Controller('wishes')
@@ -36,4 +39,17 @@ export class WishesController {
   getWish(@Param('id') id: number) {
     return this.wishesService.findOne(id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':id')
+  async updateWish(
+    @Param('id') id: number,
+    @Body() updateWishDto: UpdateWishDto,
+    @Req() req,
+  ) {
+    await this.wishesService.updateOne(id, updateWishDto, req.user.id);
+    return;
+  }
+
+  
 }

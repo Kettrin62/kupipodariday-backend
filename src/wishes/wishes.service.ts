@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wish } from './entities/wish.entity';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateWishDto } from './dto/create-wish.dto';
 import { User } from 'src/users/entities/user.entity';
+import { UpdateWishDto } from './dto/update-wish.dto';
 
 @Injectable()
 export class WishesService {
@@ -56,5 +57,18 @@ export class WishesService {
       },
     })
     return wish;
+  }
+
+  async updateOne(wishId: number, updateWishDto: UpdateWishDto, userId) {
+    const wish = await this.findOne(wishId)
+    if (wish.owner.id !== userId) {
+      throw new ForbiddenException();
+    };
+    if (wish.offers.length === 0) {
+      return this.wishesRepository.update(wishId, updateWishDto);
+    } else {
+      const { price, ...data } = updateWishDto;
+      return this.wishesRepository.update(wishId, data);
+    }
   }
 }
