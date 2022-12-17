@@ -47,9 +47,10 @@ export class UsersController {
   getMeWishes(@Req() req) {
     return this.usersService.findWishes(req.user.username);
   }
-  
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.removeOne(+id);
-  // }
+
+  @Get(':username/wishes')
+  getWishesByUsername(@Param('username') username: string) {
+    return this.usersService.findWishes(username);
+  }
+
 }
