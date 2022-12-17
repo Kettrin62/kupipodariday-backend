@@ -69,4 +69,25 @@ export class WishesController {
       return wish;
     } else throw new ForbiddenException();
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':id/copy')
+  async copyWish(
+    @Param('id') id: number,
+    @Req() req,
+  ) {
+    const wish = await this.wishesService.findOne(id);
+    if (wish.owner.id !== req.user.id) {
+      await this.wishesService.updateCopied(id, ++wish.copied);
+      const { name, link, image, price, description } = wish;
+      await this.wishesService.create({
+        name,
+        link,
+        image,
+        price,
+        description,
+      }, req.user.id)
+    }
+    return {}
+  }
 }

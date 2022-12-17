@@ -4,11 +4,11 @@ Content-Type: application/json
 
 {
 
-    "username": "exampleuser7",
-    "about": "exampleuser7",
+    "username": "exampleuser9",
+    "about": "exampleuser9",
     "avatar": "https://i.pravatar.cc/150?img=3",
-    "email": "user7@yandex.ru",
-    "password": "somestrongpassword7"
+    "email": "user9@yandex.ru",
+    "password": "somestrongpassword9"
 
 }
 
@@ -17,8 +17,8 @@ POST http://127.0.0.1:3000/signin
 Content-Type: application/json
 
 {
-    "username": "exampleuser6",
-    "password": "somestrongpassword6"
+    "username": "exampleuser8",
+    "password": "somestrongpassword8"
 }
 
 # {
@@ -99,7 +99,7 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/12
+GET http://127.0.0.1:3000/wishes/13
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
@@ -113,7 +113,11 @@ Authorization: Bearer {{token}}
 }
 
 ### endpoint /wishes/{id}
-DELETE http://127.0.0.1:3000/wishes/10
+DELETE http://127.0.0.1:3000/wishes/13
+Authorization: Bearer {{token}}
+
+### endpoint /wishes/{id}/copy
+POST http://127.0.0.1:3000/wishes/13/copy
 Authorization: Bearer {{token}}
 
 

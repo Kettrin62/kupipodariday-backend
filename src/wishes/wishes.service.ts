@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wish } from './entities/wish.entity';
 import { Repository, UpdateResult } from 'typeorm';
@@ -56,11 +56,14 @@ export class WishesService {
         owner: true,
       },
     })
+    if (!wish) {
+      throw new NotFoundException();
+    }
     return wish;
   }
 
   async updateOne(wishId: number, updateWishDto: UpdateWishDto, userId) {
-    const wish = await this.findOne(wishId)
+    const wish = await this.findOne(wishId);
     if (wish.owner.id !== userId) {
       throw new ForbiddenException();
     };
@@ -74,5 +77,9 @@ export class WishesService {
 
   remove(id: number) {
     return this.wishesRepository.delete(id);
+  }
+
+  updateCopied(id: number, copied: number) {
+    return this.wishesRepository.update(id, { copied });
   }
 }

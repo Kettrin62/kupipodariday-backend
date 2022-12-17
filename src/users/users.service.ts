@@ -19,7 +19,8 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const hash = await bcrypt.hash(createUserDto.password, 10);
+    // const hash = await bcrypt.hash(createUserDto.password, 10);
+    const hash = await this.createHash(createUserDto.password);
 
     const createUserHash: CreateUserDto = {
       ...createUserDto,
@@ -45,7 +46,7 @@ export class UsersService {
   async findByUsername(username: string): Promise<User> {
     const user = await this.usersRepository
       .createQueryBuilder('user')
-      .leftJoinAndSelect('user.wishes', 'wish')
+      // .leftJoinAndSelect('user.wishes', 'wish')
       .where({ username })
       .addSelect('user.password')
       .addSelect('user.email')
@@ -75,7 +76,26 @@ export class UsersService {
       updateUserDto.password = hash;
     }
     await this.usersRepository.update({ id }, updateUserDto);
-    return this.usersRepository.findOneBy({ id });
+    // return this.usersRepository.findOneBy({ id });
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .where({ id})
+      .addSelect('user.email')
+      .getOne();
+  }
+
+  async findWishesUser(username: string): Promise<Wish[]> {
+    const user = await this.usersRepository.findOne({
+      where: { 
+        username,
+      },
+      relations: {
+        wishes: {
+          owner: true,
+        },
+      },
+    });
+    return user.wishes;
   }
 
   async findWishes(username: string): Promise<Wish[]> {

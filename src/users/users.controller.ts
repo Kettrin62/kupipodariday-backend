@@ -6,14 +6,12 @@ import {
   Body,
   Param,
   Patch,
-  Delete,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guards';
-import { CreateUserDto } from './dto/create-user.dto';
 import { FindUsersDto } from './dto/find-users-dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 
 @UseGuards(JwtAuthGuard)
@@ -28,9 +26,13 @@ export class UsersController {
   }
 
   @Get(':username')
-  getUserByUsername(@Param('username') username: string) {
+  async getUserByUsername(@Param('username') username: string) {
     // console.log('username', this.usersService.findByUsername(username));
-    return this.usersService.findUsername(username);
+    const user = await this.usersService.findUsername(username);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   @Post('find')
@@ -45,7 +47,7 @@ export class UsersController {
 
   @Get('me/wishes')
   getMeWishes(@Req() req) {
-    return this.usersService.findWishes(req.user.username);
+    return this.usersService.findWishesUser(req.user.username);
   }
 
   @Get(':username/wishes')
