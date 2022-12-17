@@ -38,16 +38,16 @@ export class Wishlist {
   @Length(1, 250)
   name: string;
 
-  @Column()
-  @IsString()
-  @MaxLength(1500)
-  description: string;
+  // @Column()
+  // @IsString()
+  // @MaxLength(1500)
+  // description: string;
 
   @Column()
   @IsUrl()
   image: string;
 
-  @ManyToMany(() => Wish)
+  @ManyToMany(() => Wish, (wish) => wish.id, { cascade: true })
   @JoinTable()
   items: Wish[];
 

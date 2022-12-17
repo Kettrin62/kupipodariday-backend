@@ -63,7 +63,7 @@ export class Wish {
   @Length(1, 1024)
   description: string;
 
-  @OneToMany(() => Offer, (offer) => offer.item)
+  @OneToMany(() => Offer, (offer) => offer.item, { cascade: true, eager: true })
   offers: Offer[];
 
   @Column({

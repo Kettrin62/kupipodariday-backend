@@ -65,6 +65,12 @@ Authorization: Bearer {{token}}
 
 }
 
+### endpoint /users/me/wishes
+GET http://127.0.0.1:3000/users/me/wishes
+Authorization: Bearer {{token}}
+
+
+
 
 
 

@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { Wish } from 'src/wishes/entities/wish.entity';
 
 @Injectable()
 export class UsersService {
@@ -72,6 +73,18 @@ export class UsersService {
     }
     await this.usersRepository.update({ id }, updateUserDto);
     return this.usersRepository.findOneBy({ id });
+  }
+
+  async findWishes(username: string): Promise<Wish[]> {
+    const user = await this.usersRepository.findOne({
+      where: { 
+        username 
+      },
+      relations: {
+        wishes: true,
+      },
+    });
+    return user.wishes;
   }
 
 
