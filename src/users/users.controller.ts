@@ -30,7 +30,7 @@ export class UsersController {
   @Get(':username')
   getUserByUsername(@Param('username') username: string) {
     // console.log('username', this.usersService.findByUsername(username));
-    return this.usersService.findByUsername(username);
+    return this.usersService.findUsername(username);
   }
 
   @Post('find')

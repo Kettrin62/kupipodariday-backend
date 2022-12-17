@@ -43,15 +43,18 @@ export class UsersService {
   }
 
   async findByUsername(username: string) {
-    const user = await this.usersRepository.findOneBy({ username });
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.wishes', 'wish')
+      .where({ username })
+      .addSelect('user.password')
+      .addSelect('user.email')
+      .getOne();
+    return user;
+  }
 
-    // const user = await this.usersRepository
-      // .createQueryBuilder('user')
-      // .leftJoinAndSelect('user.wishes', 'wish')
-      // .where({ username })
-      // .addSelect('user.password')
-      // .addSelect('user.email')
-      // .getOne();
+  async findUsername(username: string) {
+    const user = await this.usersRepository.findOneBy({ username });
     return user;
   }
 
