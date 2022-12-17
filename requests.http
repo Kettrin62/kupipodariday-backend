@@ -90,5 +90,16 @@ Authorization: Bearer {{token}}
     "image": "https://static.onlinetrade.ru/img/items/b/neon_night_vintazh_s_effektom_zhivogo_ognya_30kh16kh35_5_sm_1177925_5.jpg"
 }
 
+### endpoint /wishes/last
+GET http://127.0.0.1:3000/wishes/last
+Authorization: Bearer {{token}}
+
+### endpoint /wishes/top
+GET http://127.0.0.1:3000/wishes/top
+Authorization: Bearer {{token}}
+
+### endpoint /wishes/{id}
+GET http://127.0.0.1:3000/wishes/13
+Authorization: Bearer {{token}}
 
 

@@ -1,6 +1,8 @@
 import { 
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -15,9 +17,23 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
-    const wish = await this.wishesService.create(createWishDto, req.user.id);
+  createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
+    return this.wishesService.create(createWishDto, req.user.id);
+  }
 
-    return wish;
+  @Get('last')
+  getWishesLast() {
+    return this.wishesService.findLast();
+  }
+
+  @Get('top')
+  getWishesTop() {
+    return this.wishesService.findTop();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  getWish(@Param('id') id: number) {
+    return this.wishesService.findOne(id);
   }
 }

@@ -42,7 +42,7 @@ export class UsersService {
     return user;
   }
 
-  async findByUsername(username: string) {
+  async findByUsername(username: string): Promise<User> {
     const user = await this.usersRepository
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.wishes', 'wish')
@@ -53,7 +53,7 @@ export class UsersService {
     return user;
   }
 
-  async findUsername(username: string) {
+  async findUsername(username: string): Promise<User> {
     const user = await this.usersRepository.findOneBy({ username });
     return user;
   }
@@ -81,20 +81,12 @@ export class UsersService {
   async findWishes(username: string): Promise<Wish[]> {
     const user = await this.usersRepository.findOne({
       where: { 
-        username 
+        username,
       },
       relations: {
         wishes: true,
       },
     });
     return user.wishes;
-  }
-
-
-
-
-
-  async removeOne(id: number) {
-    return this.usersRepository.delete({ id });
   }
 }
