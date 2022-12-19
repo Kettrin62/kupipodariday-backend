@@ -136,3 +136,10 @@ Authorization: Bearer {{token}}
     "hidden": true
 }
 
+### endpoint /offers/{id}
+GET http://127.0.0.1:3000/offers/1
+Authorization: Bearer {{token}}
+
+### endpoint /offers
+GET http://127.0.0.1:3000/offers
+Authorization: Bearer {{token}}

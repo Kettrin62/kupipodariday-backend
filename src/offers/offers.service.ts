@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Wish } from 'src/wishes/entities/wish.entity';
@@ -56,5 +56,45 @@ export class OffersService {
     //   await queryRunner.release();
     // }
 
+  }
+
+  async findOne(id: number): Promise<Offer> {
+    const offer = await this.offersRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        item: {
+          owner: true,
+        },
+        user: {
+          wishes: {
+            owner: true,
+          },
+          offers: true,
+        },
+      },
+    });
+    if (!offer) {
+      throw new NotFoundException();
+    }
+    return offer;
+  }
+
+  async findMany(): Promise<Offer[]> {
+    const offers = await this.offersRepository.find({
+      relations: {
+        item: {
+          owner: true,
+        },
+        user: {
+          wishes: {
+            owner: true,
+          },
+          offers: true,
+        },
+      },
+    });
+    return offers;
   }
 }

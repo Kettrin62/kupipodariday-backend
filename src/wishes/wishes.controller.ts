@@ -41,9 +41,9 @@ export class WishesController {
   @Get(':id')
   async getWish(@Param('id') id: number) {
     const wish = await this.wishesService.findOne(id)
-    if (!wish) {
-      throw new NotFoundException();
-    }
+    // if (!wish) {
+    //   throw new NotFoundException();
+    // }
     return this.wishesService.findOne(id);
   }
 
