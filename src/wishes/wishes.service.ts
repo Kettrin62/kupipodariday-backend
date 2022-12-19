@@ -82,4 +82,8 @@ export class WishesService {
   updateCopied(id: number, copied: number) {
     return this.wishesRepository.update(id, { copied });
   }
+
+  updateRaised(id: number, raised: number) {
+    return this.wishesRepository.update(id, { raised });
+  }
 }

@@ -34,8 +34,16 @@ export class Offer {
     type: 'decimal',
     precision: 10,
     scale: 2,
+    transformer: {
+      to(value: number): number {
+        return value;
+      },
+      from(value: string): number {
+        return parseFloat(value);
+      },
+    },
   })
-  amount: string;
+  amount: number;
 
   @Column({
     default: false,

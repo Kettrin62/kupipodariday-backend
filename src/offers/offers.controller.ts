@@ -1,4 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guards';
+import { CreateOfferDto } from './dto/create-offer.dto';
+import { OffersService } from './offers.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('offers')
-export class OffersController {}
+export class OffersController {
+  constructor(private offersService: OffersService) {}
+
+  @Post()
+  async createOffer(@Body() createOfferDto: CreateOfferDto, @Req() req) {
+    await this.offersService.create(createOfferDto, req.user);
+    
+    return {}
+  }
+}

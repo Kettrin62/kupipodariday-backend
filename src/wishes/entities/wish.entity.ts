@@ -42,6 +42,14 @@ export class Wish {
     type: 'decimal',
     precision: 10,
     scale: 2,
+    transformer: {
+      to(value: number): number {
+        return value;
+      },
+      from(value: string): number {
+        return parseFloat(value);
+      },
+    },
   })
   price: number;
 
@@ -50,6 +58,14 @@ export class Wish {
     precision: 10,
     scale: 2,
     default: 0,
+    transformer: {
+      to(value: number): number {
+        return value;
+      },
+      from(value: string): number {
+        return parseFloat(value);
+      },
+    },
   })
   raised: number;
 

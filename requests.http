@@ -121,3 +121,18 @@ POST http://127.0.0.1:3000/wishes/7/copy
 Authorization: Bearer {{token}}
 
 
+
+
+
+
+### endpoint /offers
+POST http://127.0.0.1:3000/offers
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "amount": 500,
+    "itemId": 13,
+    "hidden": true
+}
+
