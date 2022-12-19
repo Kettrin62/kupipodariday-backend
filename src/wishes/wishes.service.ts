@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wish } from './entities/wish.entity';
-import { Repository, UpdateResult } from 'typeorm';
+import { FindManyOptions, Repository, UpdateResult } from 'typeorm';
 import { CreateWishDto } from './dto/create-wish.dto';
 import { User } from 'src/users/entities/user.entity';
 import { UpdateWishDto } from './dto/update-wish.dto';
@@ -85,5 +85,9 @@ export class WishesService {
 
   updateRaised(id: number, raised: number) {
     return this.wishesRepository.update(id, { raised });
+  }
+
+  findMany(options: FindManyOptions<Wish>): Promise<Wish[]> {
+    return this.wishesRepository.find(options);
   }
 }

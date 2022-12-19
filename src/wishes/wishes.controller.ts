@@ -40,10 +40,6 @@ export class WishesController {
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getWish(@Param('id') id: number) {
-    const wish = await this.wishesService.findOne(id)
-    // if (!wish) {
-    //   throw new NotFoundException();
-    // }
     return this.wishesService.findOne(id);
   }
 

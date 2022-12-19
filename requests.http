@@ -143,3 +143,28 @@ Authorization: Bearer {{token}}
 ### endpoint /offers
 GET http://127.0.0.1:3000/offers
 Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+### endpoint /wishlistlists
+POST http://127.0.0.1:3000/wishlistlists
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+    # "image": "https://3.bp.blogspot.com/-6DK_0x5JTJo/WEWeFmpCXGI/AAAAAAAAKjk/QdwYT3Y4W80luES2U7Ut6M8AcbDKvMSDQCLcB/s1600/wishlist.jpg",
+{
+    "name": "Пустой список",
+    "itemsId": []
+}
+
+### endpoint /wishlistlists
+GET http://127.0.0.1:3000/wishlistlists
+Authorization: Bearer {{token}}
+
+### endpoint /wishlistlists
+GET http://127.0.0.1:3000/wishlistlists/1
+Authorization: Bearer {{token}}
