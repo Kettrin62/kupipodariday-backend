@@ -1,10 +1,4 @@
-import { 
-  Length, 
-  IsUrl, 
-  IsString,
-  IsOptional,
-  IsArray,
-} from 'class-validator';
+import { Length, IsUrl, IsString, IsOptional, IsArray } from 'class-validator';
 
 export class UpdateWishlistDto {
   @IsString()

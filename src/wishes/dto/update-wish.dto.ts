@@ -1,10 +1,4 @@
-import { 
-  Length, 
-  IsUrl, 
-  IsInt, 
-  IsString,
-  IsOptional,
-} from 'class-validator';
+import { Length, IsUrl, IsInt, IsString, IsOptional } from 'class-validator';
 
 export class UpdateWishDto {
   @IsString()
@@ -19,7 +13,6 @@ export class UpdateWishDto {
   @IsUrl()
   @IsOptional()
   image: string;
-
 
   @IsInt()
   @IsOptional()

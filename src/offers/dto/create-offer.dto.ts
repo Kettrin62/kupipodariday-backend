@@ -1,9 +1,4 @@
-import { 
-  IsNotEmpty, 
-  IsInt,
-  IsBoolean,
-  IsOptional,
-} from 'class-validator';
+import { IsNotEmpty, IsInt, IsBoolean, IsOptional } from 'class-validator';
 
 export class CreateOfferDto {
   @IsInt()

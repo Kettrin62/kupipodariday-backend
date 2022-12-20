@@ -37,7 +37,7 @@ export class UsersController {
 
   @Post('find')
   findUsersByQuery(@Body() findUsersDto: FindUsersDto) {
-    return this.usersService.findMany(findUsersDto.query)
+    return this.usersService.findMany(findUsersDto.query);
   }
 
   @Patch('me')
@@ -54,5 +54,4 @@ export class UsersController {
   getWishesByUsername(@Param('username') username: string) {
     return this.usersService.findWishes(username);
   }
-
 }

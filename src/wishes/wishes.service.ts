@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Wish } from './entities/wish.entity';
 import { FindManyOptions, Repository, UpdateResult } from 'typeorm';
@@ -29,8 +33,8 @@ export class WishesService {
       },
       relations: {
         owner: true,
-      }
-    })
+      },
+    });
     return wishes;
   }
 
@@ -42,8 +46,8 @@ export class WishesService {
       },
       relations: {
         owner: true,
-      }
-    })
+      },
+    });
     return wishes;
   }
 
@@ -55,7 +59,7 @@ export class WishesService {
       relations: {
         owner: true,
       },
-    })
+    });
     if (!wish) {
       throw new NotFoundException();
     }
@@ -63,8 +67,8 @@ export class WishesService {
   }
 
   async updateOne(
-    wishId: number, 
-    updateWishDto: UpdateWishDto, 
+    wishId: number,
+    updateWishDto: UpdateWishDto,
     userId: number,
   ): Promise<UpdateResult> {
     const wish = await this.findOne(wishId);

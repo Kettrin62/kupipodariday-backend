@@ -1,8 +1,8 @@
-import { 
-  Length, 
-  IsUrl, 
-  IsEmail, 
-  IsNotEmpty, 
+import {
+  Length,
+  IsUrl,
+  IsEmail,
+  IsNotEmpty,
   IsString,
   IsOptional,
 } from 'class-validator';

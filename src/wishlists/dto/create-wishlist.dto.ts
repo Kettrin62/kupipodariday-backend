@@ -1,7 +1,7 @@
-import { 
-  Length, 
-  IsUrl, 
-  IsNotEmpty, 
+import {
+  Length,
+  IsUrl,
+  IsNotEmpty,
   IsString,
   IsOptional,
   IsArray,

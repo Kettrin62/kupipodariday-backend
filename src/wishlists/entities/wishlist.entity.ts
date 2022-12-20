@@ -8,14 +8,7 @@ import {
   JoinTable,
   ManyToMany,
 } from 'typeorm';
-import {
-  Length,
-  IsUrl,
-  IsInt,
-  MaxLength,
-  IsDate,
-  IsString,
-} from 'class-validator';
+import { Length, IsUrl, IsInt, IsDate, IsString } from 'class-validator';
 import { User } from 'src/users/entities/user.entity';
 import { Wish } from 'src/wishes/entities/wish.entity';
 

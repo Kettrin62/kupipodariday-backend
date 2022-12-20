@@ -79,14 +79,14 @@ export class UsersService {
     // return this.usersRepository.findOneBy({ id });
     return this.usersRepository
       .createQueryBuilder('user')
-      .where({ id})
+      .where({ id })
       .addSelect('user.email')
       .getOne();
   }
 
   async findWishesUser(username: string): Promise<Wish[]> {
     const user = await this.usersRepository.findOne({
-      where: { 
+      where: {
         username,
       },
       relations: {
@@ -100,7 +100,7 @@ export class UsersService {
 
   async findWishes(username: string): Promise<Wish[]> {
     const user = await this.usersRepository.findOne({
-      where: { 
+      where: {
         username,
       },
       relations: {

@@ -1,10 +1,9 @@
-import { 
+import {
   Body,
   Controller,
   Delete,
   ForbiddenException,
   Get,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -56,10 +55,7 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async removeWish(
-    @Param('id') id: number,
-    @Req() req,
-  ) {
+  async removeWish(@Param('id') id: number, @Req() req) {
     const wish = await this.wishesService.findOne(id);
     if (wish.owner.id === req.user.id) {
       await this.wishesService.remove(id);
@@ -69,22 +65,22 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/copy')
-  async copyWish(
-    @Param('id') id: number,
-    @Req() req,
-  ) {
+  async copyWish(@Param('id') id: number, @Req() req) {
     const wish = await this.wishesService.findOne(id);
     if (wish.owner.id !== req.user.id) {
       await this.wishesService.updateCopied(id, ++wish.copied);
       const { name, link, image, price, description } = wish;
-      await this.wishesService.create({
-        name,
-        link,
-        image,
-        price,
-        description,
-      }, req.user.id)
+      await this.wishesService.create(
+        {
+          name,
+          link,
+          image,
+          price,
+          description,
+        },
+        req.user.id,
+      );
     }
-    return {}
+    return {};
   }
 }
