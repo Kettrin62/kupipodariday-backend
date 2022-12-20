@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { WishesService } from 'src/wishes/wishes.service';
-import { In, Repository } from 'typeorm';
+import { In, Repository, UpdateResult } from 'typeorm';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
+import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 import { Wishlist } from './entities/wishlist.entity';
 
 @Injectable()
@@ -51,5 +52,25 @@ export class WishlistsService {
         items: true,
       },
     });
+  }
+
+  async updateOne(
+    wishlistId: number, 
+    updateWishlistDto: UpdateWishlistDto, 
+    user: User,
+  ): Promise<Wishlist> {
+    const wishlist = await this.findOne(wishlistId);
+    if (wishlist.owner.id !== user.id) {
+      throw new ForbiddenException();
+    }
+    const wishes = await this.wishesService.findMany({
+      where: { id: In(updateWishlistDto.itemsId)}
+    });
+
+    (wishlist.name = updateWishlistDto.name || wishlist.name),
+      (wishlist.image = updateWishlistDto.image || wishlist.image),
+      (wishlist.items = wishes || wishlist.items);
+
+    return this.wishlistsRepository.save(wishlist);
   }
 }

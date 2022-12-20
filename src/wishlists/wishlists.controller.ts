@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Req,
   UseGuards,
@@ -10,6 +11,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guards';
 import { UsersService } from 'src/users/users.service';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
+import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 import { WishlistsService } from './wishlists.service';
 
 @UseGuards(JwtAuthGuard)
@@ -33,5 +35,14 @@ export class WishlistsController {
   @Get(':id')
   getWishlist(@Param('id') id: number) {
     return this.wishlistsService.findOne(id);
+  }
+
+  @Patch(':id')
+  updateWishlist(
+    @Param('id') id: number,
+    @Body() updateWishlistDto: UpdateWishlistDto,
+    @Req() req,
+  ) {
+    return this.wishlistsService.updateOne(id, updateWishlistDto, req.user);
   }
 }

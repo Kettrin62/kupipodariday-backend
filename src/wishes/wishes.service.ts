@@ -62,11 +62,15 @@ export class WishesService {
     return wish;
   }
 
-  async updateOne(wishId: number, updateWishDto: UpdateWishDto, userId) {
+  async updateOne(
+    wishId: number, 
+    updateWishDto: UpdateWishDto, 
+    userId: number,
+  ): Promise<UpdateResult> {
     const wish = await this.findOne(wishId);
     if (wish.owner.id !== userId) {
       throw new ForbiddenException();
-    };
+    }
     if (wish.offers.length === 0) {
       return this.wishesRepository.update(wishId, updateWishDto);
     } else {

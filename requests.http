@@ -99,7 +99,7 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/13
+GET http://127.0.0.1:3000/wishes/11
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
@@ -166,5 +166,14 @@ GET http://127.0.0.1:3000/wishlistlists
 Authorization: Bearer {{token}}
 
 ### endpoint /wishlistlists
-GET http://127.0.0.1:3000/wishlistlists/1
+GET http://127.0.0.1:3000/wishlistlists/3
 Authorization: Bearer {{token}}
+
+### endpoint /wishlistlists
+PATCH http://127.0.0.1:3000/wishlistlists/3
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "itemsId": [3, 11]
+}
