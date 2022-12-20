@@ -1,7 +1,10 @@
 import { 
   Body,
   Controller,
+  Delete,
+  ForbiddenException,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -44,5 +47,20 @@ export class WishlistsController {
     @Req() req,
   ) {
     return this.wishlistsService.updateOne(id, updateWishlistDto, req.user);
+  }
+
+  @Delete(':id')
+  async removeWishlist(@Param('id') id: number, @Req() req) {
+    const wishlist = await this.wishlistsService.findOne(id);
+    if (!wishlist) {
+      throw new NotFoundException();
+    }
+    if (wishlist.owner.id !== req.user.id) {
+      throw new ForbiddenException();
+    } else {
+      await this.wishlistsService.removeOne(id);
+      return wishlist;
+    }
+
   }
 }

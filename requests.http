@@ -165,11 +165,11 @@ Authorization: Bearer {{token}}
 GET http://127.0.0.1:3000/wishlistlists
 Authorization: Bearer {{token}}
 
-### endpoint /wishlistlists
+### endpoint /wishlistlists{id}
 GET http://127.0.0.1:3000/wishlistlists/3
 Authorization: Bearer {{token}}
 
-### endpoint /wishlistlists
+### endpoint /wishlistlists{id}
 PATCH http://127.0.0.1:3000/wishlistlists/3
 Content-Type: application/json
 Authorization: Bearer {{token}}
@@ -177,3 +177,7 @@ Authorization: Bearer {{token}}
 {
     "itemsId": [3, 11]
 }
+
+### endpoint /wishlistlists/{id}
+DELETE http://127.0.0.1:3000/wishlistlists/4
+Authorization: Bearer {{token}}

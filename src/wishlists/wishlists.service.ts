@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { WishesService } from 'src/wishes/wishes.service';
-import { In, Repository, UpdateResult } from 'typeorm';
+import { DeleteResult, In, Repository, UpdateResult } from 'typeorm';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 import { Wishlist } from './entities/wishlist.entity';
@@ -72,5 +72,9 @@ export class WishlistsService {
       (wishlist.items = wishes || wishlist.items);
 
     return this.wishlistsRepository.save(wishlist);
+  }
+
+  removeOne(id: number): Promise<DeleteResult> {
+    return this.wishlistsRepository.delete(id);
   }
 }
