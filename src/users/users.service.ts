@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,7 +27,9 @@ export class UsersService {
     const userByUsername = await this.findUsername(username);
     const userByEmail = await this.findEmail(email);
     if (userByUsername && userByEmail) {
-      throw new BadRequestException('Пользователь с таким именем и email уже есть');
+      throw new BadRequestException(
+        'Пользователь с таким именем и email уже есть',
+      );
     } else if (userByUsername) {
       throw new BadRequestException('Пользователь с таким именем уже есть');
     } else if (userByEmail) {
@@ -90,11 +96,17 @@ export class UsersService {
   async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
     const { username, email } = updateUserDto;
-    const userByUsername = username && username !== user.username && await this.findUsername(username);
-    const userByEmail = email && email !== user.email && await this.findEmail(email);
+    const userByUsername =
+      username &&
+      username !== user.username &&
+      (await this.findUsername(username));
+    const userByEmail =
+      email && email !== user.email && (await this.findEmail(email));
 
     if (userByUsername && userByEmail) {
-      throw new BadRequestException('Пользователь с таким именем и email уже есть');
+      throw new BadRequestException(
+        'Пользователь с таким именем и email уже есть',
+      );
     } else if (userByUsername) {
       throw new BadRequestException('Пользователь с таким именем уже есть');
     } else if (userByEmail) {
