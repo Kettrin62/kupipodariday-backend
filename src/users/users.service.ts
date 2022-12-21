@@ -109,4 +109,16 @@ export class UsersService {
     });
     return user.wishes;
   }
+
+  async findMails(usersId: number[]): Promise<string[]> {
+    const users = await this.usersRepository
+    .createQueryBuilder()
+    .select('user')
+    .from(User, 'user')
+    .where('user.id IN (:...usersId)', { usersId })
+    .addSelect('user.email')
+    .getMany();
+
+    return users.map(user => user.email);
+  }
 }

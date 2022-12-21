@@ -4,7 +4,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MailService } from 'src/mail/mail.service';
 import { User } from 'src/users/entities/user.entity';
+import { UsersService } from 'src/users/users.service';
 import { WishesService } from 'src/wishes/wishes.service';
 import { Repository } from 'typeorm';
 import { CreateOfferDto } from './dto/create-offer.dto';
@@ -15,12 +17,13 @@ export class OffersService {
   constructor(
     @InjectRepository(Offer)
     private offersRepository: Repository<Offer>,
-    private wishesService: WishesService, // private dataSource: DataSource,
+    private wishesService: WishesService,
+    private usersService: UsersService,
+    private mailService: MailService,
   ) {}
 
   async create(createOfferDto: CreateOfferDto, user: User): Promise<Offer> {
     const wish = await this.wishesService.findOne(createOfferDto.itemId);
-    console.log(wish);
 
     if (wish.owner.id === user.id) {
       throw new BadRequestException(
@@ -48,6 +51,13 @@ export class OffersService {
       wish.id,
       wish.raised + createOfferDto.amount,
     );
+
+    if (wish.price === wish.raised + createOfferDto.amount) {
+      const users = wish.offers.map(offer => offer.user.id);
+      users.push(user.id);
+      const mails = await this.usersService.findMails(users);
+      await this.mailService.sendEmail(mails, wish);
+    }
 
     return this.offersRepository.save(offer);
   }

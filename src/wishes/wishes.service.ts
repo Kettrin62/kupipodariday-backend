@@ -58,6 +58,9 @@ export class WishesService {
       },
       relations: {
         owner: true,
+        offers: {
+          user: true,
+        },
       },
     });
     if (!wish) {
@@ -75,12 +78,10 @@ export class WishesService {
     if (wish.owner.id !== userId) {
       throw new ForbiddenException();
     }
-    if (wish.offers.length === 0) {
-      return this.wishesRepository.update(wishId, updateWishDto);
-    } else {
-      const { price, ...data } = updateWishDto;
-      return this.wishesRepository.update(wishId, data);
+    if (wish.offers.length !== 0) {
+      delete updateWishDto.price;
     }
+    return this.wishesRepository.update(wishId, updateWishDto);
   }
 
   remove(id: number) {

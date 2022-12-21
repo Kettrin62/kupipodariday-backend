@@ -9,6 +9,7 @@ import { WishlistsModule } from 'src/wishlists/wishlists.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import dbConfiguration from './config/db.config';
 import { AuthModule } from './auth/auth.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AuthModule } from './auth/auth.module';
     OffersModule,
     WishlistsModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

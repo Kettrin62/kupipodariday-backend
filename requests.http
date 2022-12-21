@@ -4,11 +4,11 @@ Content-Type: application/json
 
 {
 
-    "username": "exampleuser9",
+    "username": "exampleuser10",
     "about": "exampleuser9",
     "avatar": "https://i.pravatar.cc/150?img=3",
-    "email": "user9@yandex.ru",
-    "password": "somestrongpassword9"
+    "email": "user10@yandex.ru",
+    "password": "somestrongpassword10"
 
 }
 
@@ -99,7 +99,7 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/11
+GET http://127.0.0.1:3000/wishes/13
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
@@ -109,7 +109,7 @@ Authorization: Bearer {{token}}
 
 {
     "name": "Светодиодный камин-светильник Винтаж с эффектом живого огня",
-    "price": 2890
+    "price": 2880
 }
 
 ### endpoint /wishes/{id}
@@ -131,7 +131,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "amount": 500,
+    "amount": 100,
     "itemId": 13,
     "hidden": true
 }
