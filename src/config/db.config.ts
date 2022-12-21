@@ -14,5 +14,5 @@ export default registerAs('database', () => ({
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
   entities: [User, Wish, Wishlist, Offer],
-  synchronize: true,
+  synchronize: process.env.POSTGRES_SYNC,
 }));
