@@ -80,10 +80,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Чайник со свистком TYPHOON",
-    "link": "https://www.onlinetrade.ru/catalogue/chayniki_dlya_plity-c235/typhoon/chaynik_so_svistkom_typhoon_living_goluboy_2_5_l_1401.164v-2179999.html#tabs_feedbacks",
-    "price": 2270,
-    "image": "https://static.onlinetrade.ru/img/items/b/chaynik_so_svistkom_typhoon_living_goluboy_1448987_1.jpg"
+    "name": "Блендер Bosch погружной",
+    "link": "https://www.onlinetrade.ru/catalogue/blendery-c75/bosch/blender_bosch_msm_66020_pogruzhnoy_msm66020-190188.html",
+    "price": 2990,
+    "image": "https://static.onlinetrade.ru/img/items/b/blender_bosch_msm_66020_pogrugnoy_1.jpg"
 }
 
 ### endpoint /wishes/last
@@ -95,7 +95,7 @@ GET http://127.0.0.1:3000/wishes/top
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
-GET http://127.0.0.1:3000/wishes/13
+GET http://127.0.0.1:3000/wishes/8
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}
@@ -104,16 +104,15 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "Светодиодный камин-светильник Винтаж с эффектом живого огня",
-    "price": 2880
+    "name": "Блендер Bosch погружной"
 }
 
 ### endpoint /wishes/{id}
-DELETE http://127.0.0.1:3000/wishes/13
+DELETE http://127.0.0.1:3000/wishes/15
 Authorization: Bearer {{token}}
 
 ### endpoint /wishes/{id}/copy
-POST http://127.0.0.1:3000/wishes/7/copy
+POST http://127.0.0.1:3000/wishes/18/copy
 Authorization: Bearer {{token}}
 
 
@@ -175,5 +174,5 @@ Authorization: Bearer {{token}}
 }
 
 ### endpoint /wishlistlists/{id}
-DELETE http://127.0.0.1:3000/wishlistlists/4
+DELETE http://127.0.0.1:3000/wishlistlists/5
 Authorization: Bearer {{token}}

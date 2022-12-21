@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -26,9 +26,11 @@ export class UsersService {
       password: hash,
     };
 
-    const user = await this.usersRepository.create(createUserHash);
+    const createUser = await this.usersRepository.create(createUserHash);
 
-    return this.usersRepository.save(user);
+    const user = await this.usersRepository.save(createUser);
+    delete user.password;
+    return user;
   }
 
   async findOne(id: number): Promise<User> {
@@ -73,12 +75,13 @@ export class UsersService {
   async updateOne(
     id: number,
     updateUserDto: UpdateUserDto,
-  ): Promise<UpdateResult> {
+  ): Promise<User> {
     if (updateUserDto.password) {
       const hash = await this.createHash(updateUserDto.password);
       updateUserDto.password = hash;
     }
-    return this.usersRepository.update({ id }, updateUserDto);
+    await this.usersRepository.update({ id }, updateUserDto);
+    return this.findOne(id);
   }
 
   async findWishesUser(username: string): Promise<Wish[]> {

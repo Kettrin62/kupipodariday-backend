@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { WishesService } from 'src/wishes/wishes.service';
-import { DeleteResult, In, Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateWishlistDto } from './dto/create-wishlist.dto';
 import { UpdateWishlistDto } from './dto/update-wishlist.dto';
 import { Wishlist } from './entities/wishlist.entity';
@@ -81,7 +81,16 @@ export class WishlistsService {
     return this.wishlistsRepository.save(wishlist);
   }
 
-  removeOne(id: number): Promise<DeleteResult> {
-    return this.wishlistsRepository.delete(id);
+  async removeOne(id: number, userId: number): Promise<Wishlist> {
+    const wishlist = await this.findOne(id);
+    if (!wishlist) {
+      throw new NotFoundException();
+    }
+    if (wishlist.owner.id !== userId) {
+      throw new ForbiddenException();
+    } else {
+      await this.wishlistsRepository.delete(id);
+      return wishlist;
+    }
   }
 }

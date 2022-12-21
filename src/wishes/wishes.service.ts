@@ -17,12 +17,13 @@ export class WishesService {
     private wishesRepository: Repository<Wish>,
   ) {}
 
-  async create(createWishDto: CreateWishDto, owner: User): Promise<Wish> {
+  async create(createWishDto: CreateWishDto, owner: User): Promise<{}> {
     const wish = await this.wishesRepository.create({
       ...createWishDto,
       owner,
     });
-    return this.wishesRepository.save(wish);
+    await this.wishesRepository.save(wish);
+    return {};
   }
 
   async findLast(): Promise<Wish[]> {
@@ -73,7 +74,7 @@ export class WishesService {
     wishId: number,
     updateWishDto: UpdateWishDto,
     userId: number,
-  ): Promise<UpdateResult> {
+  ): Promise<void> {
     const wish = await this.findOne(wishId);
     if (wish.owner.id !== userId) {
       throw new ForbiddenException();
@@ -81,18 +82,40 @@ export class WishesService {
     if (wish.offers.length !== 0) {
       delete updateWishDto.price;
     }
-    return this.wishesRepository.update(wishId, updateWishDto);
+    await this.wishesRepository.update(wishId, updateWishDto);
+    return;
   }
 
-  remove(id: number) {
-    return this.wishesRepository.delete(id);
+  async remove(id: number, userId: number): Promise<Wish> {
+    const wish = await this.findOne(id);
+    if (wish.owner.id !== userId) {
+      throw new ForbiddenException();
+    }
+    await this.wishesRepository.delete(id);
+    return wish;
   }
 
-  updateCopied(id: number, copied: number) {
-    return this.wishesRepository.update(id, { copied });
+  async updateCopied(id: number, user: User): Promise<{}> {
+    const wish = await this.findOne(id);
+    if (wish.owner.id !== user.id) {
+      const copied = wish.copied + 1;
+      await this.wishesRepository.update(id, { copied });
+      const { name, link, image, price, description } = wish;
+      await this.create(
+        {
+          name,
+          link,
+          image,
+          price,
+          description,
+        },
+        user,
+      );
+    }
+    return {};
   }
 
-  updateRaised(id: number, raised: number) {
+  updateRaised(id: number, raised: number): Promise<UpdateResult> {
     return this.wishesRepository.update(id, { raised });
   }
 

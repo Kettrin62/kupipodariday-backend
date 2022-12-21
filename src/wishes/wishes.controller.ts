@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Delete,
-  ForbiddenException,
   Get,
   Param,
   Patch,
@@ -21,9 +20,8 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
-    await this.wishesService.create(createWishDto, req.user);
-    return {};
+  createWish(@Body() createWishDto: CreateWishDto, @Req() req) {
+    return this.wishesService.create(createWishDto, req.user);
   }
 
   @Get('last')
@@ -38,49 +36,29 @@ export class WishesController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async getWish(@Param('id') id: number) {
+  getWish(@Param('id') id: number) {
     return this.wishesService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  async updateWish(
+  updateWish(
     @Param('id') id: number,
     @Body() updateWishDto: UpdateWishDto,
     @Req() req,
   ) {
-    await this.wishesService.updateOne(id, updateWishDto, req.user.id);
-    return;
+    return this.wishesService.updateOne(id, updateWishDto, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async removeWish(@Param('id') id: number, @Req() req) {
-    const wish = await this.wishesService.findOne(id);
-    if (wish.owner.id === req.user.id) {
-      await this.wishesService.remove(id);
-      return wish;
-    } else throw new ForbiddenException();
+  removeWish(@Param('id') id: number, @Req() req) {
+    return this.wishesService.remove(id, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post(':id/copy')
-  async copyWish(@Param('id') id: number, @Req() req) {
-    const wish = await this.wishesService.findOne(id);
-    if (wish.owner.id !== req.user.id) {
-      await this.wishesService.updateCopied(id, ++wish.copied);
-      const { name, link, image, price, description } = wish;
-      await this.wishesService.create(
-        {
-          name,
-          link,
-          image,
-          price,
-          description,
-        },
-        req.user.id,
-      );
-    }
-    return {};
+  copyWish(@Param('id') id: number, @Req() req) {
+    return this.wishesService.updateCopied(id, req.user.id);
   }
 }

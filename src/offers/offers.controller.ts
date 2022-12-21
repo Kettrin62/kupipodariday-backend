@@ -17,9 +17,8 @@ export class OffersController {
   constructor(private offersService: OffersService) {}
 
   @Post()
-  async createOffer(@Body() createOfferDto: CreateOfferDto, @Req() req) {
-    await this.offersService.create(createOfferDto, req.user);
-    return {};
+  createOffer(@Body() createOfferDto: CreateOfferDto, @Req() req) {
+    return this.offersService.create(createOfferDto, req.user);
   }
 
   @Get(':id')

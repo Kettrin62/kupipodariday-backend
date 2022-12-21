@@ -22,7 +22,7 @@ export class OffersService {
     private mailService: MailService,
   ) {}
 
-  async create(createOfferDto: CreateOfferDto, user: User): Promise<Offer> {
+  async create(createOfferDto: CreateOfferDto, user: User): Promise<{}> {
     const wish = await this.wishesService.findOne(createOfferDto.itemId);
 
     if (wish.owner.id === user.id) {
@@ -59,7 +59,8 @@ export class OffersService {
       await this.mailService.sendEmail(mails, wish);
     }
 
-    return this.offersRepository.save(offer);
+    await this.offersRepository.save(offer);
+    return {};
   }
 
   async findOne(id: number): Promise<Offer> {
