@@ -17,7 +17,7 @@ export class WishesService {
     private wishesRepository: Repository<Wish>,
   ) {}
 
-  async create(createWishDto: CreateWishDto, owner: User): Promise<{}> {
+  async create(createWishDto: CreateWishDto, owner: User): Promise<object> {
     const wish = await this.wishesRepository.create({
       ...createWishDto,
       owner,
@@ -95,7 +95,7 @@ export class WishesService {
     return wish;
   }
 
-  async updateCopied(id: number, user: User): Promise<{}> {
+  async updateCopied(id: number, user: User): Promise<object> {
     const wish = await this.findOne(id);
     if (wish.owner.id !== user.id) {
       const copied = wish.copied + 1;
