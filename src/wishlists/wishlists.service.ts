@@ -47,7 +47,7 @@ export class WishlistsService {
       },
     });
     if (!wishlist) {
-      throw new NotFoundException();
+      throw new NotFoundException('Такого списка не существует');
     }
     return wishlist;
   }
@@ -68,7 +68,7 @@ export class WishlistsService {
   ): Promise<Wishlist> {
     const wishlist = await this.findOne(wishlistId);
     if (wishlist.owner.id !== user.id) {
-      throw new ForbiddenException();
+      throw new ForbiddenException('Нет прав на редактирование списка');
     }
     const wishes = await this.wishesService.findMany({
       where: { id: In(updateWishlistDto.itemsId) },
@@ -83,11 +83,8 @@ export class WishlistsService {
 
   async removeOne(id: number, userId: number): Promise<Wishlist> {
     const wishlist = await this.findOne(id);
-    if (!wishlist) {
-      throw new NotFoundException();
-    }
     if (wishlist.owner.id !== userId) {
-      throw new ForbiddenException();
+      throw new ForbiddenException('Нет прав на удаление списка');
     } else {
       await this.wishlistsRepository.delete(id);
       return wishlist;

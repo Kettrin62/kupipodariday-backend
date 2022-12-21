@@ -65,7 +65,7 @@ export class WishesService {
       },
     });
     if (!wish) {
-      throw new NotFoundException();
+      throw new NotFoundException('Такого подарка не существует');
     }
     return wish;
   }
@@ -77,7 +77,7 @@ export class WishesService {
   ): Promise<void> {
     const wish = await this.findOne(wishId);
     if (wish.owner.id !== userId) {
-      throw new ForbiddenException();
+      throw new ForbiddenException('Нет прав на изменение данных подарка');
     }
     if (wish.offers.length !== 0) {
       delete updateWishDto.price;
@@ -89,7 +89,7 @@ export class WishesService {
   async remove(id: number, userId: number): Promise<Wish> {
     const wish = await this.findOne(id);
     if (wish.owner.id !== userId) {
-      throw new ForbiddenException();
+      throw new ForbiddenException('Нет прав на удаление подарка');
     }
     await this.wishesRepository.delete(id);
     return wish;

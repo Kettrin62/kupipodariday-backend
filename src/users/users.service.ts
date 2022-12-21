@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -19,8 +19,18 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const hash = await this.createHash(createUserDto.password);
+    const { username, email } = createUserDto;
+    const userByUsername = await this.findUsername(username);
+    const userByEmail = await this.findEmail(email);
+    if (userByUsername && userByEmail) {
+      throw new BadRequestException('Пользователь с таким именем и email уже есть');
+    } else if (userByUsername) {
+      throw new BadRequestException('Пользователь с таким именем уже есть');
+    } else if (userByEmail) {
+      throw new BadRequestException('Пользователь с таким email уже есть');
+    }
 
+    const hash = await this.createHash(createUserDto.password);
     const createUserHash: CreateUserDto = {
       ...createUserDto,
       password: hash,
@@ -51,13 +61,18 @@ export class UsersService {
       .addSelect('user.email')
       .getOne();
     if (!user) {
-      throw new NotFoundException();
+      throw new NotFoundException('Такого пользователя не существует');
     }
     return user;
   }
 
   async findUsername(username: string): Promise<User> {
     const user = await this.usersRepository.findOneBy({ username });
+    return user;
+  }
+
+  async findEmail(email: string): Promise<User> {
+    const user = await this.usersRepository.findOneBy({ email });
     return user;
   }
 
@@ -73,6 +88,19 @@ export class UsersService {
   }
 
   async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.findOne(id);
+    const { username, email } = updateUserDto;
+    const userByUsername = username && username !== user.username && await this.findUsername(username);
+    const userByEmail = email && email !== user.email && await this.findEmail(email);
+
+    if (userByUsername && userByEmail) {
+      throw new BadRequestException('Пользователь с таким именем и email уже есть');
+    } else if (userByUsername) {
+      throw new BadRequestException('Пользователь с таким именем уже есть');
+    } else if (userByEmail) {
+      throw new BadRequestException('Пользователь с таким email уже есть');
+    }
+
     if (updateUserDto.password) {
       const hash = await this.createHash(updateUserDto.password);
       updateUserDto.password = hash;

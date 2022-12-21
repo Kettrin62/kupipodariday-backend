@@ -81,7 +81,7 @@ export class OffersService {
       },
     });
     if (!offer) {
-      throw new NotFoundException();
+      throw new NotFoundException('Такого оффера не существует');
     }
     return offer;
   }

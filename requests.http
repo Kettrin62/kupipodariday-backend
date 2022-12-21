@@ -4,11 +4,11 @@ Content-Type: application/json
 
 {
 
-    "username": "exampleuser10",
+    "username": "exampleuser11",
     "about": "exampleuser9",
     "avatar": "https://i.pravatar.cc/150?img=3",
     "email": "user10@yandex.ru",
-    "password": "somestrongpassword10"
+    "password": "somestrongpassword11"
 
 }
 
@@ -57,7 +57,9 @@ Authorization: Bearer {{token}}
 
 {
 
-    "about": "exampleuser5"
+    "about": "exampleuser5",
+    "username": "exampleuser5",
+    "email": "user5@yandex.ru"
 
 }
 
