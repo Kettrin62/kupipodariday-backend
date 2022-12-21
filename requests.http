@@ -57,11 +57,7 @@ Authorization: Bearer {{token}}
 
 {
 
-    "username": "exampleuser5",
-    "about": "exampleuser5",
-    "avatar": "https://i.pravatar.cc/150?img=3",
-    "email": "user5@yandex.ru",
-    "password": "somestrongpassword234"
+    "about": "exampleuser5"
 
 }
 
