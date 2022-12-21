@@ -53,7 +53,7 @@ export class OffersService {
     );
 
     if (wish.price === wish.raised + createOfferDto.amount) {
-      const users = wish.offers.map(offer => offer.user.id);
+      const users = wish.offers.map((offer) => offer.user.id);
       users.push(user.id);
       const mails = await this.usersService.findMails(users);
       await this.mailService.sendEmail(mails, wish);

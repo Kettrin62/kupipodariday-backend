@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { createTestAccount, createTransport, Transporter, getTestMessageUrl } from 'nodemailer';
+import { createTestAccount, createTransport, Transporter } from 'nodemailer';
 import { SentMessageInfo } from 'nodemailer/lib/smtp-transport';
 
 import { Wish } from 'src/wishes/entities/wish.entity';
-
 
 @Injectable()
 export class MailService {
@@ -19,8 +18,6 @@ export class MailService {
       port: 587,
       secure: false,
       auth: {
-        // user: this.configService.get('emailDistributionSMTPT.email'),
-        // pass: this.configService.get('emailDistributionSMTPT.password'),
         user: this.testEmailAccount.user,
         pass: this.testEmailAccount.pass,
       },
@@ -40,10 +37,6 @@ export class MailService {
       `,
     });
 
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", getTestMessageUrl(info));
-
     return info;
   }
-
 }

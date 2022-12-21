@@ -31,11 +31,6 @@ export class Wishlist {
   @Length(1, 250)
   name: string;
 
-  // @Column()
-  // @IsString()
-  // @MaxLength(1500)
-  // description: string;
-
   @Column({
     nullable: true,
   })

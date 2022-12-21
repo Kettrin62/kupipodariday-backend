@@ -22,15 +22,8 @@ export class WishlistsController {
   constructor(private wishlistsService: WishlistsService) {}
 
   @Post()
-  async createWishlist(
-    @Body() createWishlistDto: CreateWishlistDto,
-    @Req() req,
-  ) {
-    const wishlist = await this.wishlistsService.create(
-      createWishlistDto,
-      req.user,
-    );
-    return wishlist;
+  createWishlist(@Body() createWishlistDto: CreateWishlistDto, @Req() req) {
+    return this.wishlistsService.create(createWishlistDto, req.user);
   }
 
   @Get()

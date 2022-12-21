@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -19,7 +19,6 @@ export class UsersService {
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    // const hash = await bcrypt.hash(createUserDto.password, 10);
     const hash = await this.createHash(createUserDto.password);
 
     const createUserHash: CreateUserDto = {
@@ -33,7 +32,6 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<User> {
-    // const user = await this.usersRepository.findOneBy({ id });
     const user = await this.usersRepository
       .createQueryBuilder('user')
       .where({ id })
@@ -46,11 +44,13 @@ export class UsersService {
   async findByUsername(username: string): Promise<User> {
     const user = await this.usersRepository
       .createQueryBuilder('user')
-      // .leftJoinAndSelect('user.wishes', 'wish')
       .where({ username })
       .addSelect('user.password')
       .addSelect('user.email')
       .getOne();
+    if (!user) {
+      throw new NotFoundException();
+    }
     return user;
   }
 
@@ -70,18 +70,15 @@ export class UsersService {
     return users;
   }
 
-  async updateOne(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateOne(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UpdateResult> {
     if (updateUserDto.password) {
       const hash = await this.createHash(updateUserDto.password);
       updateUserDto.password = hash;
     }
-    await this.usersRepository.update({ id }, updateUserDto);
-    // return this.usersRepository.findOneBy({ id });
-    return this.usersRepository
-      .createQueryBuilder('user')
-      .where({ id })
-      .addSelect('user.email')
-      .getOne();
+    return this.usersRepository.update({ id }, updateUserDto);
   }
 
   async findWishesUser(username: string): Promise<Wish[]> {
@@ -112,13 +109,13 @@ export class UsersService {
 
   async findMails(usersId: number[]): Promise<string[]> {
     const users = await this.usersRepository
-    .createQueryBuilder()
-    .select('user')
-    .from(User, 'user')
-    .where('user.id IN (:...usersId)', { usersId })
-    .addSelect('user.email')
-    .getMany();
+      .createQueryBuilder()
+      .select('user')
+      .from(User, 'user')
+      .where('user.id IN (:...usersId)', { usersId })
+      .addSelect('user.email')
+      .getMany();
 
-    return users.map(user => user.email);
+    return users.map((user) => user.email);
   }
 }
