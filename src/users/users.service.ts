@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -22,10 +22,7 @@ export class UsersService {
     return bcrypt.hash(password, 10);
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const { username, email } = createUserDto;
-    const userByUsername = await this.findUsername(username);
-    const userByEmail = await this.findEmail(email);
+  errorUnique(userByUsername: User, userByEmail: User): void {
     if (userByUsername && userByEmail) {
       throw new BadRequestException(
         'Пользователь с таким именем и email уже есть',
@@ -35,6 +32,17 @@ export class UsersService {
     } else if (userByEmail) {
       throw new BadRequestException('Пользователь с таким email уже есть');
     }
+  }
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const { username, email } = createUserDto;
+    const userByUsername = await this.findOptions({
+      where: { username }
+    });
+    const userByEmail = await this.findOptions({
+      where: { email }
+    });
+    this.errorUnique(userByUsername, userByEmail);
 
     const hash = await this.createHash(createUserDto.password);
     const createUserHash: CreateUserDto = {
@@ -72,13 +80,8 @@ export class UsersService {
     return user;
   }
 
-  async findUsername(username: string): Promise<User> {
-    const user = await this.usersRepository.findOneBy({ username });
-    return user;
-  }
-
-  async findEmail(email: string): Promise<User> {
-    const user = await this.usersRepository.findOneBy({ email });
+  async findOptions(options: FindOneOptions): Promise<User> {
+    const user = await this.usersRepository.findOne(options);
     return user;
   }
 
@@ -99,19 +102,14 @@ export class UsersService {
     const userByUsername =
       username &&
       username !== user.username &&
-      (await this.findUsername(username));
+      (await this.findOptions({
+        where: { username }
+      }));
     const userByEmail =
-      email && email !== user.email && (await this.findEmail(email));
-
-    if (userByUsername && userByEmail) {
-      throw new BadRequestException(
-        'Пользователь с таким именем и email уже есть',
-      );
-    } else if (userByUsername) {
-      throw new BadRequestException('Пользователь с таким именем уже есть');
-    } else if (userByEmail) {
-      throw new BadRequestException('Пользователь с таким email уже есть');
-    }
+      email && email !== user.email && (await this.findOptions({
+        where: { email }
+      }));
+    this.errorUnique(userByUsername, userByEmail);
 
     if (updateUserDto.password) {
       const hash = await this.createHash(updateUserDto.password);
