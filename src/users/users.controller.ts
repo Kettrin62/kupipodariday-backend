@@ -26,7 +26,7 @@ export class UsersController {
   @Get(':username')
   getUserByUsername(@Param('username') username: string) {
     return this.usersService.findOptions({
-      where: { username }
+      where: { username },
     });
   }
 

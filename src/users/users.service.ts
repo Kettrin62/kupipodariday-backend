@@ -37,10 +37,10 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { username, email } = createUserDto;
     const userByUsername = await this.findOptions({
-      where: { username }
+      where: { username },
     });
     const userByEmail = await this.findOptions({
-      where: { email }
+      where: { email },
     });
     this.errorUnique(userByUsername, userByEmail);
 
@@ -103,11 +103,13 @@ export class UsersService {
       username &&
       username !== user.username &&
       (await this.findOptions({
-        where: { username }
+        where: { username },
       }));
     const userByEmail =
-      email && email !== user.email && (await this.findOptions({
-        where: { email }
+      email &&
+      email !== user.email &&
+      (await this.findOptions({
+        where: { email },
       }));
     this.errorUnique(userByUsername, userByEmail);
 
