@@ -2,13 +2,23 @@
 POST http://localhost:3000/signup
 Content-Type: application/json
 
+# {
+
+#     "username": "exampleuser11",
+#     "about": "exampleuser9",
+#     "avatar": "https://i.pravatar.cc/150?img=3",
+#     "email": "user10@yandex.ru",
+#     "password": "somestrongpassword11"
+
+# }
+
 {
 
-    "username": "exampleuser11",
-    "about": "exampleuser9",
+    "username": "exampleuser1",
+    "about": "exampleuser1",
     "avatar": "https://i.pravatar.cc/150?img=3",
-    "email": "user10@yandex.ru",
-    "password": "somestrongpassword11"
+    "email": "user1@yandex.ru",
+    "password": "somestrongpassword1"
 
 }
 
@@ -29,7 +39,7 @@ Content-Type: application/json
 ###
 
 # Васёк
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJpYXQiOjE2NzEyMTU5NDUsImV4cCI6MTY3MzgwNzk0NX0.SB0Kx4O-W4BSITZOETfVjLavXP2ODMTK3HZMISR5gNU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI5LCJpYXQiOjE2NzUwODk4MjIsImV4cCI6MTY3NzY4MTgyMn0.5fja1sIk82jgE8NObK7Qm4kGbf-FOFyvN4YvC1VghUo
 # @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjI4LCJpYXQiOjE2NzEyNzQ5NDAsImV4cCI6MTY3Mzg2Njk0MH0.dL7_J14NzlwOXz_8YPh_dB-EYZmI8h9F6zdCA2MovIk
 
 
